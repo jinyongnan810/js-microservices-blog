@@ -6,20 +6,20 @@ import { CreateComment } from "./CreateComment";
 import { ListComments } from "./ListComments";
 
 export const ListPosts = () => {
-  const [posts, setPosts] = useState({ items: [] });
+  const [posts, setPosts] = useState([]);
   const getPosts = async () => {
-    const res = await Axios.get("http://localhost:4000/posts");
+    const res = await Axios.get("http://localhost:4002/posts");
     setPosts(res.data);
   };
   useEffect(() => {
     getPosts();
   }, []);
 
-  const rendered = posts["items"].map((post) => (
+  const rendered = posts.map((post) => (
     <div className="card col-3 m-1" key={post.id}>
       <div className="card-body">
         <h3>{post.title}</h3>
-        <ListComments postId={post.id} />
+        <ListComments comments={post.comments} />
         <hr />
         <CreateComment postId={post.id} />
       </div>
