@@ -15,21 +15,19 @@ app.get("/posts", (req, res) => {
 
 app.post("/events", (req, res) => {
   const event = req.body;
-  const type = event.type;
-  const content = event.content;
+  const { type, content } = event;
 
   switch (type) {
     case "Post-Created":
-      posts[content.id] = { ...content, comments: [] };
+      posts[content.id] = { ...content, comments: {} };
       break;
     case "Comment-Created":
+    case "Comment-Updated":
       if (posts[content.postId]) {
-        posts[content.postId].comments.push({
-          id: content.id,
-          content: content.content,
-        });
+        posts[content.postId].comments[content.id] = { ...content };
       }
       break;
+
     default:
       break;
   }

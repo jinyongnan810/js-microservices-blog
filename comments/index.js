@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const { randomBytes } = require("crypto");
 const cors = require("cors");
-const { default: Axios } = require("axios");
+const axios = require("axios");
 
 const app = express();
 app.use(bodyParser.json());
@@ -19,7 +19,7 @@ app.post("/posts/:id/comments", async (req, res) => {
   const { content } = req.body;
 
   const commentsToBeUpdated = comments[req.params.id] || [];
-  const newComment = { id: newId, content };
+  const newComment = { id: newId, content, status: "pending" };
   commentsToBeUpdated.push(newComment);
 
   comments[req.params.id] = commentsToBeUpdated;
@@ -27,13 +27,28 @@ app.post("/posts/:id/comments", async (req, res) => {
   // send to event bus
   const event = {
     type: "Comment-Created",
-    content: { ...newComment, postId: req.params.id },
+    // actually query only needs the id and content, make sure to only send those when there are lots of properties
+    content: { ...newComment, postId: req.params.id, status: "pending" },
   };
-  await Axios.post("http://localhost:4005/events", event);
+  await axios.post("http://localhost:4005/events", event);
   res.status(201).send(commentsToBeUpdated);
 });
 
-app.post("/events", (req, res) => {
+app.post("/events", async (req, res) => {
+  const { type, content } = req.body;
+  console.log("Received type:", type);
+  switch (type) {
+    case "Comment-Moderated":
+      const { id, postId, status } = content;
+      const comment = comments[postId].find((comment) => comment.id === id);
+      comment.status = status;
+
+      const updated = { content, type: "Comment-Updated" };
+      await axios.post("http://localhost:4005/events", updated);
+      break;
+    default:
+      break;
+  }
   res.send({});
 });
 
