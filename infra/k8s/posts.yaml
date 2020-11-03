@@ -1,0 +1,8 @@
+apiVersion: v1 # Objects pool version
+kind: Pod # Object type of Pod
+metadata: # Options of the object
+  name: posts # name of object
+spec: # The exact attributes of the object
+  containers: # Create containers
+    - name: posts # Container's name
+      image: jinyongnan/posts:0.0.1 # Container's image
