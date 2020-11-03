@@ -11,8 +11,10 @@ docker build -t jinyongnan/posts:0.0.1 .
 cd infra/k8s
 kubectl apply -f posts.yaml # (manipulating indivisual pod)
 kubectl apply -f posts-depl.yaml # (manipulating pods by Deployment)
+kubectl apply -f posts-srv.yaml # create service to expose ports
 kubectl get pods
 kubectl get deployemnts # get deployments
+kubectl get services # ger services
 kubectl decribe pod posts
 kubectl exec -it posts -- sh
 kubectl delete pod posts
