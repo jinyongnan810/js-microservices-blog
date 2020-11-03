@@ -20,6 +20,8 @@ kubectl decribe pod posts
 kubectl exec -it posts -- sh
 kubectl delete pod posts
 kubectl delete deployment posts-deplt # delete deployment
+# deploy nginx ingress controller
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.40.2/deploy/static/provider/cloud/deploy.yaml
 ```
 
 ### Steps of a update

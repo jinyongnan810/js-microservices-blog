@@ -8,7 +8,7 @@ import { ListComments } from "./ListComments";
 export const ListPosts = () => {
   const [posts, setPosts] = useState([]);
   const getPosts = async () => {
-    const res = await Axios.get("http://localhost:4002/posts");
+    const res = await Axios.get("http://posts.com/posts");
     setPosts(res.data);
   };
   useEffect(() => {
