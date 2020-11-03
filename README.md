@@ -24,7 +24,7 @@ kubectl delete deployment posts-deplt # delete deployment
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.40.2/deploy/static/provider/cloud/deploy.yaml
 ```
 
-### Steps of a update
+### Steps of a update(Production)
 
 ```bash
 1.build new code with no version specified
@@ -33,3 +33,8 @@ docker build -t jinyongnan/posts
 docker push jinyongnan/posts
 3.kubectl rollout restart deployment posts-depl
 ```
+
+### Steps of a update(Development)
+
+- [install skaffold](https://skaffold.dev/docs/install/)
+- run `skaffold dev`
