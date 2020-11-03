@@ -38,3 +38,4 @@ docker push jinyongnan/posts
 
 - [install skaffold](https://skaffold.dev/docs/install/)
 - run `skaffold dev`
+- manually delete pods with `skaffold delete`
