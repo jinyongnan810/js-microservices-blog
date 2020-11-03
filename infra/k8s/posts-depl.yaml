@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: posts
-        image: jinyongnan/posts:0.0.1
+        image: jinyongnan/posts
         resources:
           limits:
             memory: "128Mi"

@@ -2,7 +2,8 @@
 
 ```bash
 cd posts
-docker build -t jinyongnan/posts:0.0.1 .
+docker build -t jinyongnan/posts .
+docker push jinyongnan/posts
 ```
 
 ### Run kubernetes
