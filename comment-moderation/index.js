@@ -17,7 +17,7 @@ app.post("/events", async (req, res) => {
         } else {
           moderated.content.status = "approved";
         }
-        await axios.post("http://localhost:4005/events", moderated);
+        await axios.post("http://event-bus-srv:4005/events", moderated);
       }, 5000);
       break;
     default:

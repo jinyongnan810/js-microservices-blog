@@ -22,11 +22,13 @@ app.post("/posts", async (req, res) => {
 
   // send to event bus
   const event = { type: "Post-Created", content: post };
-  await axios.post("http://localhost:4005/events", event);
+  await axios.post("http://event-bus-srv:4005/events", event);
   res.status(201).send(post);
 });
 
 app.post("/events", (req, res) => {
+  const { type, content } = req.body;
+  console.log("Received type:", type);
   res.send({});
 });
 

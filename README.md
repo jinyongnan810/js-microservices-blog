@@ -29,5 +29,5 @@ kubectl delete deployment posts-deplt # delete deployment
 docker build -t jinyongnan/posts
 2.push to docker-hub
 docker push jinyongnan/posts
-3.kubectl rollout restart deployment post-depl
+3.kubectl rollout restart deployment posts-depl
 ```

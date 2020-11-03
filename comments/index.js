@@ -30,7 +30,7 @@ app.post("/posts/:id/comments", async (req, res) => {
     // actually query only needs the id and content, make sure to only send those when there are lots of properties
     content: { ...newComment, postId: req.params.id, status: "pending" },
   };
-  await axios.post("http://localhost:4005/events", event);
+  await axios.post("http://event-bus-srv:4005/events", event);
   res.status(201).send(commentsToBeUpdated);
 });
 
@@ -44,7 +44,7 @@ app.post("/events", async (req, res) => {
       comment.status = status;
 
       const updated = { content, type: "Comment-Updated" };
-      await axios.post("http://localhost:4005/events", updated);
+      await axios.post("http://event-bus-srv:4005/events", updated);
       break;
     default:
       break;
